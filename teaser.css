@@ -1,0 +1,242 @@
+/* ============================================================
+   HSF TEASER - ADDITIONS
+   Loads AFTER styles.css. Nothing here overrides the guide's
+   tokens; it only adds the blocks the teaser needs and the
+   guide does not have.
+
+   Temporary site. Retired ~9/15/2026 when the voter guide
+   takes over holdseizefight.org.
+   ============================================================ */
+
+/* ---------- promise band ----------
+   Sits directly under the voter tools. States what is coming
+   and when. Deliberately quiet: the tools above it are the
+   thing we want people to touch. */
+.promise {
+  background: var(--card);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.6rem var(--pad);
+}
+
+.promise-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.promise-lede {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  font-size: clamp(1.35rem, 5.5vw, 2rem);
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+}
+
+.promise-text {
+  color: var(--ink-soft);
+  max-width: 44rem;
+  margin: 0 auto;
+  font-size: 0.98rem;
+}
+
+.promise-text:last-child { margin-bottom: 0; }
+
+/* ---------- testimonial wall ----------
+   Same navy halftone field as the category bands, so the wall
+   reads as part of the guide rather than a bolted-on section. */
+.wall {
+  background-color: var(--navy);
+  background-image:
+    var(--halftone),
+    radial-gradient(ellipse at 30% 40%, var(--navy-lift) 0%, var(--navy-deep) 80%);
+  background-size: var(--halftone-size), cover;
+  border-top: 3px solid var(--orange);
+  padding: 2.25rem var(--pad) 2.5rem;
+}
+
+.wall-inner { max-width: var(--wrap); margin: 0 auto; }
+
+.wall-title {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 0.95;
+  font-size: clamp(1.75rem, 8vw, 2.9rem);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  margin: 0 0 0.7rem;
+}
+
+.wall-blurb {
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  max-width: 42rem;
+  margin: 0 0 1.6rem;
+}
+
+.wall-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+/* One clip. Portrait 4:5 to match the candidate card headshot
+   crop already in the system. */
+.clip {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--gold);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.clip video {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #EDE7D8;
+  display: block;
+}
+
+.clip-caption {
+  padding: 0.6rem 0.7rem 0.7rem;
+}
+
+.clip-name {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  font-size: 1.05rem;
+  line-height: 1.08;
+  margin: 0 0 0.15rem;
+  overflow-wrap: break-word;
+}
+
+.clip-where {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Shown while the wall has no clips in it yet. Delete the
+   element from index.html once the first clip goes up. */
+.wall-empty {
+  background: rgba(255,255,255,0.07);
+  border: 2px dashed rgba(255,255,255,0.28);
+  border-radius: 2px;
+  padding: 2rem 1.25rem;
+  text-align: center;
+  color: rgba(255,255,255,0.78);
+  font-size: 0.95rem;
+}
+
+.wall-empty p:last-child { margin-bottom: 0; }
+
+/* ---------- explainer call-out ---------- */
+.explainer-cta {
+  background: var(--paper);
+  padding: 2.25rem var(--pad) 2.5rem;
+  border-top: 3px solid var(--gold);
+}
+
+.explainer-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.explainer-title {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  line-height: 1;
+  margin: 0 0 0.6rem;
+}
+
+.explainer-text {
+  color: var(--ink-soft);
+  max-width: 42rem;
+  margin: 0 auto 1.3rem;
+}
+
+/* ============================================================
+   EXPLAINER PAGE (categories.html)
+   ============================================================ */
+
+.prose {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem var(--pad) 2.5rem;
+}
+
+.prose h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  font-size: clamp(1.5rem, 6vw, 2.1rem);
+  line-height: 1.02;
+  margin: 2rem 0 0.6rem;
+}
+
+.prose h2:first-child { margin-top: 0; }
+
+.prose .kicker {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange-dk);
+  margin: 0 0 0.3rem;
+}
+
+.backlink {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.75rem;
+  border: 2px solid var(--orange);
+  border-radius: 2px;
+  color: var(--orange-dk);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.backlink:hover { background: var(--orange); color: #FFFFFF; }
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+@media (min-width: 40rem) {
+  .wall-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+
+@media (min-width: 62rem) {
+  .wall { padding: 2.75rem var(--pad) 3rem; }
+}
+
+@media (min-width: 78rem) {
+  .wall-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+
+@media print {
+  .wall { background: #FFFFFF !important; border-bottom: 3px solid #000; }
+  .wall-title { color: #000 !important; text-shadow: none; }
+  .wall-blurb { color: #333 !important; }
+  .wall-grid, .explainer-cta { display: none; }
+}

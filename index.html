@@ -51,6 +51,19 @@
 <main id="main">
 
   <!-- ============================================================
+       DRAFT NOTICE
+
+       DELETE THIS ENTIRE BLOCK before binding the real domain.
+       ============================================================ -->
+  <div class="status">
+    <div class="status-msg">
+      <h2>Preview build</h2>
+      <p>The clips below are placeholders showing layout only. Real testimonials and approved copy replace them before launch.</p>
+    </div>
+  </div>
+  <!-- END DRAFT NOTICE -->
+
+  <!-- ============================================================
        PROMISE BAND
        ============================================================ -->
   <section class="promise">
@@ -64,44 +77,97 @@
   <!-- ============================================================
        TESTIMONIAL WALL
 
-       TO ADD A CLIP:
+       TO REPLACE A PLACEHOLDER WITH A REAL CLIP:
        1. Put the .mp4 in /videos/ and a still frame in /videos/posters/
-       2. Copy one <article class="clip"> block below and fill it in
-       3. Delete the .wall-empty block once the first clip is live
+       2. Write the transcript into /videos/captions/NAME.vtt
+       3. Swap the three filenames and the two caption lines in one
+          <article class="clip"> block below
 
-       Captions: every clip needs a .vtt caption file. Without one
-       the site is not accessible to deaf and hard-of-hearing
-       voters, and a civic site cannot ship that way.
+       Every clip needs its .vtt file. Without one the wall is not
+       accessible to deaf and hard-of-hearing voters, and a civic
+       site cannot ship that way.
+
+       Film vertically on a phone. Portrait is the right shape here.
+       Landscape clips will crop badly inside the 4:5 frame.
        ============================================================ -->
   <section class="wall" aria-labelledby="wall-title">
     <div class="wall-inner">
       <h2 class="wall-title" id="wall-title">Why <span class="lead">2026</span> matters here</h2>
       <p class="wall-blurb">Arizonans, in their own words. A few seconds each.</p>
 
-      <!-- DELETE THIS BLOCK once the first clip is live -->
-      <div class="wall-empty">
-        <p><strong>The wall is being filled now.</strong></p>
-        <p>If you live in Arizona and want to say why you are voting this year, we would like to hear it. Five to ten seconds, filmed on your phone, is exactly right.</p>
-      </div>
-      <!-- END DELETE -->
-
       <div class="wall-grid">
 
-        <!-- ---------- CLIP TEMPLATE, copy this block ----------
         <article class="clip">
-          <video controls preload="none" playsinline
-                 poster="videos/posters/firstname-lastname.jpg">
-            <source src="videos/firstname-lastname.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/firstname-lastname.vtt"
-                   srclang="en" label="English" default>
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-tucson.jpg">
+            <source src="videos/placeholder-tucson.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-tucson.vtt" srclang="en" label="English" default>
             Your browser cannot play this video.
           </video>
           <div class="clip-caption">
-            <p class="clip-name">Firstname L.</p>
+            <p class="clip-name">Placeholder</p>
             <p class="clip-where">Tucson</p>
           </div>
         </article>
-        ---------- END TEMPLATE ---------- -->
+
+        <article class="clip">
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-phoenix.jpg">
+            <source src="videos/placeholder-phoenix.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-phoenix.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video.
+          </video>
+          <div class="clip-caption">
+            <p class="clip-name">Placeholder</p>
+            <p class="clip-where">Phoenix</p>
+          </div>
+        </article>
+
+        <article class="clip">
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-flagstaff.jpg">
+            <source src="videos/placeholder-flagstaff.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-flagstaff.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video.
+          </video>
+          <div class="clip-caption">
+            <p class="clip-name">Placeholder</p>
+            <p class="clip-where">Flagstaff</p>
+          </div>
+        </article>
+
+        <article class="clip">
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-sierravista.jpg">
+            <source src="videos/placeholder-sierravista.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-sierravista.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video.
+          </video>
+          <div class="clip-caption">
+            <p class="clip-name">Placeholder</p>
+            <p class="clip-where">Sierra Vista</p>
+          </div>
+        </article>
+
+        <article class="clip">
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-marana.jpg">
+            <source src="videos/placeholder-marana.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-marana.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video.
+          </video>
+          <div class="clip-caption">
+            <p class="clip-name">Placeholder</p>
+            <p class="clip-where">Marana</p>
+          </div>
+        </article>
+
+        <article class="clip">
+          <video controls preload="none" playsinline poster="videos/posters/placeholder-mesa.jpg">
+            <source src="videos/placeholder-mesa.mp4" type="video/mp4">
+            <track kind="captions" src="videos/captions/placeholder-mesa.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video.
+          </video>
+          <div class="clip-caption">
+            <p class="clip-name">Placeholder</p>
+            <p class="clip-where">Mesa</p>
+          </div>
+        </article>
 
       </div>
     </div>

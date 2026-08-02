@@ -38,7 +38,6 @@
 <!-- ============================================================
      VOTER TOOLS
      Links go only to Arizona Secretary of State properties.
-     No third-party redirectors, no tracking in the path.
      ============================================================ -->
 <section class="voter-tools" aria-label="Voter registration tools">
   <div class="tools-inner">
@@ -77,98 +76,21 @@
   <!-- ============================================================
        TESTIMONIAL WALL
 
-       TO REPLACE A PLACEHOLDER WITH A REAL CLIP:
-       1. Put the .mp4 in /videos/ and a still frame in /videos/posters/
-       2. Write the transcript into /videos/captions/NAME.vtt
-       3. Swap the three filenames and the two caption lines in one
-          <article class="clip"> block below
-
-       Every clip needs its .vtt file. Without one the wall is not
-       accessible to deaf and hard-of-hearing voters, and a civic
-       site cannot ship that way.
-
-       Film vertically on a phone. Portrait is the right shape here.
-       Landscape clips will crop badly inside the 4:5 frame.
+       Clips live on the HSF YouTube channel. The wall below is
+       built by the script at the bottom of this file from the
+       CLIPS array. To change the wall, edit that array only.
+       Nothing in this section needs touching.
        ============================================================ -->
   <section class="wall" aria-labelledby="wall-title">
     <div class="wall-inner">
       <h2 class="wall-title" id="wall-title">Why <span class="lead">2026</span> matters here</h2>
       <p class="wall-blurb">Arizonans, in their own words. A few seconds each.</p>
 
-      <div class="wall-grid">
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-tucson.jpg">
-            <source src="videos/placeholder-tucson.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-tucson.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Tucson</p>
-          </div>
-        </article>
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-phoenix.jpg">
-            <source src="videos/placeholder-phoenix.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-phoenix.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Phoenix</p>
-          </div>
-        </article>
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-flagstaff.jpg">
-            <source src="videos/placeholder-flagstaff.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-flagstaff.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Flagstaff</p>
-          </div>
-        </article>
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-sierravista.jpg">
-            <source src="videos/placeholder-sierravista.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-sierravista.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Sierra Vista</p>
-          </div>
-        </article>
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-marana.jpg">
-            <source src="videos/placeholder-marana.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-marana.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Marana</p>
-          </div>
-        </article>
-
-        <article class="clip">
-          <video controls preload="none" playsinline poster="videos/posters/placeholder-mesa.jpg">
-            <source src="videos/placeholder-mesa.mp4" type="video/mp4">
-            <track kind="captions" src="videos/captions/placeholder-mesa.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video.
-          </video>
-          <div class="clip-caption">
-            <p class="clip-name">Placeholder</p>
-            <p class="clip-where">Mesa</p>
-          </div>
-        </article>
-
+      <div class="wall-grid" id="wall-grid">
+        <div class="wall-empty">
+          <p>The clips need JavaScript to play here.</p>
+          <p><a href="https://www.youtube.com/@hsfvoter" target="_blank" rel="noopener">Watch them on YouTube instead.</a></p>
+        </div>
       </div>
     </div>
   </section>
@@ -213,6 +135,159 @@
     </p>
   </div>
 </footer>
+
+<!-- ============================================================
+     LIGHTBOX
+     Empty until a tile is clicked. The player iframe is created
+     on open and destroyed on close, so no video keeps running
+     in the background.
+     ============================================================ -->
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="lightbox-frame">
+    <button type="button" class="lightbox-close" id="lightbox-close">Close</button>
+    <div id="lightbox-slot"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   THE WALL
+
+   TO EDIT THE WALL, EDIT THIS LIST AND NOTHING ELSE.
+
+   One line per clip, in the order they should appear:
+
+     { id: "YOUTUBE_ID", name: "First L.", where: "Tucson" }
+
+   id     required. The characters after /shorts/ in the URL.
+            https://youtube.com/shorts/YE2rtF5oj4c  ->  YE2rtF5oj4c
+   name   optional. Leave as "" and the tile shows no caption.
+   where  optional. City or region. Leave as "" to omit.
+   poster optional. Path to a local still frame, e.g.
+            "videos/posters/maria.jpg". If left off, the
+            thumbnail is pulled from YouTube instead.
+
+   To add a clip, copy a line and change the id.
+   To remove one, delete its line.
+   To reorder, move lines. The grid re-flows on its own.
+   ============================================================ */
+const CLIPS = [
+  { id: "YE2rtF5oj4c", name: "", where: "" },
+  { id: "iE3JUc9pzNI", name: "", where: "" },
+  { id: "MJwxODVCae4", name: "", where: "" },
+  { id: "Ww1hRXWg8Mc", name: "", where: "" },
+  { id: "QPOzKCuJWbA", name: "", where: "" },
+  { id: "4VxXGxrB4KY", name: "", where: "" },
+  { id: "TJdT67HX6dk", name: "", where: "" },
+  { id: "FYRh1ghYm-U", name: "", where: "" }
+  /* ninth clip goes here when it is published */
+];
+
+/* ------------------------------------------------------------
+   Everything below is machinery. It should not need editing.
+   ------------------------------------------------------------ */
+(function () {
+  "use strict";
+
+  const grid    = document.getElementById("wall-grid");
+  const box     = document.getElementById("lightbox");
+  const slot    = document.getElementById("lightbox-slot");
+  const closeEl = document.getElementById("lightbox-close");
+
+  if (!grid || !box || !slot || !closeEl) return;
+  if (!CLIPS.length) return;
+
+  let lastFocused = null;
+
+  /* ---------- build the tiles ---------- */
+  grid.innerHTML = "";
+
+  CLIPS.forEach(function (clip) {
+    if (!clip || !clip.id) return;
+
+    const article = document.createElement("article");
+    article.className = "clip";
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "clip-btn";
+
+    const label = clip.name
+      ? "Play video from " + clip.name + (clip.where ? " in " + clip.where : "")
+      : "Play testimonial video";
+    btn.setAttribute("aria-label", label);
+
+    const img = document.createElement("img");
+    img.className = "clip-thumb";
+    img.loading = "lazy";
+    img.alt = "";
+    img.src = clip.poster
+      ? clip.poster
+      : "https://i.ytimg.com/vi/" + clip.id + "/hqdefault.jpg";
+    btn.appendChild(img);
+
+    btn.addEventListener("click", function () { openBox(clip.id, btn); });
+    article.appendChild(btn);
+
+    if (clip.name || clip.where) {
+      const cap = document.createElement("div");
+      cap.className = "clip-caption";
+      if (clip.name) {
+        const n = document.createElement("p");
+        n.className = "clip-name";
+        n.textContent = clip.name;
+        cap.appendChild(n);
+      }
+      if (clip.where) {
+        const w = document.createElement("p");
+        w.className = "clip-where";
+        w.textContent = clip.where;
+        cap.appendChild(w);
+      }
+      article.appendChild(cap);
+    }
+
+    grid.appendChild(article);
+  });
+
+  /* ---------- open ---------- */
+  function openBox(videoId, source) {
+    lastFocused = source || null;
+
+    const frame = document.createElement("iframe");
+    frame.src = "https://www.youtube-nocookie.com/embed/" + videoId +
+                "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+    frame.title = "Testimonial video";
+    frame.allow = "autoplay; encrypted-media; picture-in-picture";
+    frame.allowFullscreen = true;
+
+    slot.appendChild(frame);
+    box.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeEl.focus();
+  }
+
+  /* ---------- close ---------- */
+  function closeBox() {
+    slot.innerHTML = "";           /* destroys the iframe, stops playback */
+    box.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocused) { lastFocused.focus(); lastFocused = null; }
+  }
+
+  closeEl.addEventListener("click", closeBox);
+
+  box.addEventListener("click", function (e) {
+    if (e.target === box) closeBox();     /* click the backdrop */
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (box.hidden) return;
+    if (e.key === "Escape") { closeBox(); return; }
+    if (e.key === "Tab") { e.preventDefault(); closeEl.focus(); }
+  });
+})();
+</script>
 
 </body>
 </html>

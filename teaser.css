@@ -76,9 +76,16 @@
   margin: 0 0 1.6rem;
 }
 
+/* Auto-fill, not fixed columns. The wall now sizes itself to
+   whatever number of clips exist. Adding a tenth video, or a
+   twentieth, needs no CSS change.
+
+   --clip-min sets the smallest a tile may be before the grid
+   drops a column. Raise it for fewer, larger tiles. */
 .wall-grid {
+  --clip-min: 148px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(var(--clip-min), 1fr));
   gap: 0.75rem;
 }
 
@@ -101,7 +108,7 @@
 }
 
 .clip-caption {
-  padding: 0.6rem 0.7rem 0.7rem;
+  padding: 0.45rem 0.55rem 0.55rem;
 }
 
 .clip-name {
@@ -109,23 +116,23 @@
   font-weight: 400;
   text-transform: uppercase;
   color: var(--navy-deep);
-  font-size: 1.05rem;
-  line-height: 1.08;
-  margin: 0 0 0.15rem;
+  font-size: 0.92rem;
+  line-height: 1.06;
+  margin: 0 0 0.12rem;
   overflow-wrap: break-word;
 }
 
 .clip-where {
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin: 0;
 }
 
-/* Shown while the wall has no clips in it yet. Delete the
-   element from index.html once the first clip goes up. */
+/* Shown while the wall has no clips in it yet. Also serves as
+   the no-JavaScript fallback once the wall renders from script. */
 .wall-empty {
   background: rgba(255,255,255,0.07);
   border: 2px dashed rgba(255,255,255,0.28);
@@ -219,7 +226,7 @@
    ============================================================ */
 
 @media (min-width: 40rem) {
-  .wall-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .wall-grid { --clip-min: 165px; gap: 0.9rem; }
 }
 
 @media (min-width: 62rem) {
@@ -227,7 +234,7 @@
 }
 
 @media (min-width: 78rem) {
-  .wall-grid { grid-template-columns: repeat(4, 1fr); }
+  .wall-grid { --clip-min: 210px; }
 }
 
 /* ============================================================
@@ -239,4 +246,126 @@
   .wall-title { color: #000 !important; text-shadow: none; }
   .wall-blurb { color: #333 !important; }
   .wall-grid, .explainer-cta { display: none; }
+}
+/* ============================================================
+   YOUTUBE FACADE AND LIGHTBOX
+   Added 8/2026 when the wall moved from self-hosted mp4 to
+   the HSF YouTube channel.
+
+   No request reaches Google until a voter clicks a tile.
+   The tile is a plain image and button; the player iframe is
+   created on demand and destroyed on close.
+   ============================================================ */
+
+.clip-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #EDE7D8;
+  cursor: pointer;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.clip-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Play badge. Drawn in CSS so there is no icon file to lose. */
+.clip-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 11px 0 11px 18px;
+  border-color: transparent transparent transparent #FFFFFF;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+}
+
+.clip-btn::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(18,37,60,0.62);
+  border: 2px solid rgba(255,255,255,0.85);
+}
+
+.clip-btn:hover::before { background: var(--orange); }
+
+/* ---------- lightbox ---------- */
+.lightbox[hidden] { display: none; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(8,16,26,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lightbox-frame {
+  position: relative;
+  width: min(92vw, calc((100vh - 6rem) * 9 / 16));
+  aspect-ratio: 9 / 16;
+  max-height: calc(100vh - 6rem);
+  background: #000000;
+  border: 3px solid var(--gold);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* The slot div has no size of its own, so it must be told to
+   fill the frame. Without this the iframe falls back to its
+   default 300x150 and sits in the corner. */
+#lightbox-slot {
+  position: absolute;
+  inset: 0;
+}
+
+.lightbox-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--gold);
+  border-radius: 2px;
+  background: var(--navy-deep);
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.lightbox-close:hover { background: var(--orange); border-color: var(--orange); color: #FFFFFF; }
+
+@media print {
+  .lightbox { display: none !important; }
 }

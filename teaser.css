@@ -81,9 +81,15 @@
    twentieth, needs no CSS change.
 
    --clip-min sets the smallest a tile may be before the grid
-   drops a column. Raise it for fewer, larger tiles. */
+   drops a column. Raise it for fewer, larger tiles.
+
+   TILE SIZE, 8/2026: lowered from 148 / 165 / 210 so the wall
+   gains one column at every width. With eleven clips this takes
+   the wall from six rows to four on a phone. To make tiles
+   larger again, raise the three --clip-min values below; they
+   are the only numbers that control tile size. */
 .wall-grid {
-  --clip-min: 148px;
+  --clip-min: 104px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--clip-min), 1fr));
   gap: 0.75rem;
@@ -226,7 +232,7 @@
    ============================================================ */
 
 @media (min-width: 40rem) {
-  .wall-grid { --clip-min: 165px; gap: 0.9rem; }
+  .wall-grid { --clip-min: 132px; gap: 0.9rem; }
 }
 
 @media (min-width: 62rem) {
@@ -234,7 +240,7 @@
 }
 
 @media (min-width: 78rem) {
-  .wall-grid { --clip-min: 210px; }
+  .wall-grid { --clip-min: 170px; }
 }
 
 /* ============================================================
